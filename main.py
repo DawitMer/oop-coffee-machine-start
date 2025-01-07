@@ -11,19 +11,18 @@ casher = MoneyMachine()
 def coffee_shop():
     is_on = True
     while is_on:
-        order = input(f"What would you like? {coffee_shop_menu.get_items()}: ").lower()
-        if order == "off":
+        choice = input(f"What would you like? {coffee_shop_menu.get_items()}: ").lower()
+        if choice == "off":
             is_on = False
-        elif order == "report":
+        elif choice == "report":
             coffee_machine.report()
             casher.report()
         else:
-            drink = coffee_shop_menu.find_drink(order)
-            if drink:
-                if coffee_machine.is_resource_sufficient(drink):
-                    price_of_drink = drink.cost
-                    if casher.make_payment(price_of_drink):
-                        coffee_machine.make_coffee(drink)
+            drink_info = coffee_shop_menu.find_drink(choice)
+            if coffee_machine.is_resource_sufficient(drink_info):
+                price_of_drink = drink_info.cost
+                if casher.make_payment(price_of_drink):
+                    coffee_machine.make_coffee(drink_info)
 
 
 coffee_shop()
